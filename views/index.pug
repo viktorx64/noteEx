@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  #container
+    div(id="users")
+      a please choose a identity
+      br
+      input(type="button" value="Dave" onclick="chooseUser(1608546447754)")
+      input(type="button" value="Gave" onclick="chooseUser(1608546476120)")
+
