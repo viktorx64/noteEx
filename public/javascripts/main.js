@@ -40,9 +40,21 @@ function loadNote() {
         //create html elements
         var note = document.createElement("div");
         var title = document.createElement("p");
+        var created = document.createElement("p");
+        var edited = document.createElement("p");
+        //insert info
         var titleNode = document.createTextNode(notes[i].fields.title);
+        var createdNode = document.createTextNode("created: " + notes[i].fields.created);
+        var editedNode = document.createTextNode("edit: " + notes[i].fields.edit);
+        //append text to 'p' tags
         title.appendChild(titleNode);
+        created.appendChild(createdNode);
+        edited.appendChild(editedNode);
+        //add to this note
         note.appendChild(title);
+        note.appendChild(created);
+        note.appendChild(edited);
+        //add to note list
         List.appendChild(note);
         console.log(titleNode); // tester
     }
