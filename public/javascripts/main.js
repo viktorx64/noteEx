@@ -1,6 +1,4 @@
-const { response } = require("express");
-
-console.log("NoteEx version 1.0.0");
+console.log("NoteEx version 1.0.1");
 
 
 //user chooser
@@ -10,13 +8,15 @@ var notes;
 
 function chooseUser(user) {
     userId = user;
+    filterNotes(user);
+    //hide users
+    document.getElementById("users").style.display = "none";
 }
 
 function loadData() {
     fetch("https://api.airtable.com/v0/appoHaXAczcm9r8T5/Table%201?api_key=keyhUeGc1q8yCVQdl")
         .then(response => response.json())
         .then(data => notes = data.records)
-        .then(filterNotes(userId));
 }
 
 //not ultra secure but it works for this excerise
@@ -28,5 +28,7 @@ function filterNotes(user) {
             dummyNotes.push(notes[i]);
         }
     }
-    notes = dummyNotes;
+    notes = dummyNotes; // set notes with only the users
 }
+
+window.onload = loadData;
