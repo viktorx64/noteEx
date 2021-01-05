@@ -9,8 +9,9 @@ var notes;
 function chooseUser(user) {
     userId = user;
     filterNotes(user);
-    //hide users
+    //hide users adn show notes
     document.getElementById("users").style.display = "none";
+    document.getElementById("notesPage").style.display = "block";
 }
 
 function loadData() {
@@ -29,6 +30,22 @@ function filterNotes(user) {
         }
     }
     notes = dummyNotes; // set notes with only the users
+}
+
+function loadNote() {
+    //list all notes on page
+    var List = document.getElementById("notes");
+    //loop all the info into the elements
+    for (var i = 0; i < notes.length; i++) { 
+        //create html elements
+        var note = document.createElement("div");
+        var title = document.createElement("p");
+        var titleNode = document.createTextNode(notes[i].fields.title);
+        title.appendChild(titleNode);
+        note.appendChild(title);
+        List.appendChild(note);
+        console.log(titleNode); // tester
+    }
 }
 
 window.onload = loadData;
