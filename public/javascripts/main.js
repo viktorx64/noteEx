@@ -1,4 +1,4 @@
-console.log("NoteEx version 1.0.1");
+console.log("NoteEx version 1.1.0");
 
 
 //user chooser
@@ -12,6 +12,7 @@ function chooseUser(user) {
     //hide users adn show notes
     document.getElementById("users").style.display = "none";
     document.getElementById("notesPage").style.display = "block";
+    loadNote();
 }
 
 function loadData() {
@@ -39,7 +40,7 @@ function loadNote() {
     for (var i = 0; i < notes.length; i++) { 
         //create html elements
         var note = document.createElement("div");
-        var title = document.createElement("p");
+        var title = document.createElement("h3");
         var created = document.createElement("p");
         var edited = document.createElement("p");
         //insert info
@@ -54,6 +55,7 @@ function loadNote() {
         note.appendChild(title);
         note.appendChild(created);
         note.appendChild(edited);
+        note.className = "col-sm-6 notering";
         //add to note list
         List.appendChild(note);
         console.log(titleNode); // tester
