@@ -10,4 +10,6 @@ a {
   this is for my poor css knowlegde
   so i can easily see where my stuff appears.
 */
-
+div {
+  border: dotted;
+}
