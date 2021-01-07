@@ -78,4 +78,29 @@ function openEditor(id) {
     document.getElementById("notesPage").style.display = "none";
 }
 
+function createNote() {
+    //
+    fetch(`https://api.airtable.com/v0/appoHaXAczcm9r8T5/Table%201?api_key=keyhUeGc1q8yCVQdl`, {
+        method: 'POST', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "records": [
+                  {
+                      "fields": {
+                          "Name": "created with code",
+                          "title": document.getElementById("Title").value,
+                          "content": document.getElementById("Content").value,
+                          "created" : Date.now(),
+                          "edit": Date.now(),
+                          "userId":  userId
+                      }
+                  }
+              ]
+          })
+        })
+        .then(response => response.json())
+}
+
 window.onload = loadData;
