@@ -56,11 +56,26 @@ function loadNote() {
         note.appendChild(title);
         note.appendChild(created);
         note.appendChild(edited);
+        note.setAttribute("onclick","openEditor(" + i + ")");
         note.className = "col-sm-6 notering";
         //add to note list
         List.appendChild(note);
         console.log(titleNode); // tester
     }
+}
+
+function openEditor(id) {
+    if (id=="new") {
+        //Todo create new note code
+    } else {
+        //load note data into page
+        document.getElementById("Title").value = notes[id].fields.title;
+        document.getElementById("Content").value = notes[id].fields.content;
+    }
+    //hide other stuff and show editor/view page
+    document.getElementById("users").style.display = "none";
+    document.getElementById("readNote").style.display = "block";
+    document.getElementById("notesPage").style.display = "none";
 }
 
 window.onload = loadData;
