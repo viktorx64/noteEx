@@ -1,5 +1,5 @@
 console.log("NoteEx version 1.1.0");
-
+document.getElementById("readNote").style.display = "none"; //hide
 
 //user chooser
 var userId;     //an id so you cant cheat the system to easily
@@ -11,6 +11,7 @@ function chooseUser(user) {
     filterNotes(user);
     //hide users adn show notes
     document.getElementById("users").style.display = "none";
+    document.getElementById("readNote").style.display = "none";
     document.getElementById("notesPage").style.display = "block";
     loadNote();
 }
