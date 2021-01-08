@@ -1,6 +1,6 @@
-console.log("NoteEx version 1.1.0");
-
-
+console.log("NoteEx version 1.2.0");
+document.getElementById("readNote").style.display = "none"; //hide
+document.getElementById("newNote").style.display = "none";
 //user chooser
 var userId;     //an id so you cant cheat the system to easily
 //all the notes from one user
@@ -11,8 +11,17 @@ function chooseUser(user) {
     filterNotes(user);
     //hide users adn show notes
     document.getElementById("users").style.display = "none";
+    document.getElementById("readNote").style.display = "none";
     document.getElementById("notesPage").style.display = "block";
+    document.getElementById("newNote").style.display = "block";
     loadNote();
+}
+
+function showNotes() {
+    document.getElementById("users").style.display = "none";
+    document.getElementById("readNote").style.display = "none";
+    document.getElementById("notesPage").style.display = "block";
+    document.getElementById("newNote").style.display = "block";
 }
 
 function loadData() {
@@ -55,11 +64,84 @@ function loadNote() {
         note.appendChild(title);
         note.appendChild(created);
         note.appendChild(edited);
+        note.setAttribute("onclick","openEditor(" + i + ")");
+        note.setAttribute("class", "notes");
         note.className = "col-sm-6 notering";
         //add to note list
         List.appendChild(note);
         console.log(titleNode); // tester
     }
+}
+
+function openEditor(id) {
+    if (id=="new") {
+        //Todo create new note code
+        document.getElementById("Title").value = "";
+        document.getElementById("Content").value = "";
+        //make save button work
+        document.getElementById("save").setAttribute("onclick", "createNote()");
+    } else {
+        //load note data into page
+        document.getElementById("Title").value = notes[id].fields.title;
+        document.getElementById("Content").value = notes[id].fields.content;
+        //make save button work
+        document.getElementById("save").setAttribute("onclick", "editNote(" + id + ")");
+    }
+    //hide other stuff and show editor/view page
+    document.getElementById("users").style.display = "none";
+    document.getElementById("readNote").style.display = "block";
+    document.getElementById("notesPage").style.display = "none";
+}
+
+function createNote() {
+    //
+    fetch(`https://api.airtable.com/v0/appoHaXAczcm9r8T5/Table%201?api_key=keyhUeGc1q8yCVQdl`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "records": [
+                  {
+                      "fields": {
+                          "Name": "created with code",
+                          "title": document.getElementById("Title").value,
+                          "content": document.getElementById("Content").value,
+                          "created" : Date.now(),
+                          "edit": Date.now(),
+                          "userId":  userId
+                      }
+                  }
+              ]
+          })
+        })
+        .then(response => response.json())
+        loadData();
+}
+
+function editNote(id) {
+    //same as before but with patch
+    fetch(`https://api.airtable.com/v0/appoHaXAczcm9r8T5/Table%201?api_key=keyhUeGc1q8yCVQdl`, {
+        method: 'PATCH', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "records": [
+                  {
+                        "id": notes[id].id,
+                        "fields": {
+                          "Name": "created with code",
+                          "title": document.getElementById("Title").value,
+                          "content": document.getElementById("Content").value,
+                          "edit": Date.now(),
+                          "userId":  userId
+                      }
+                  }
+              ]
+          })
+        })
+        .then(response => response.json())
 }
 
 window.onload = loadData;
