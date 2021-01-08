@@ -1,6 +1,6 @@
 console.log("NoteEx version 1.2.0");
 document.getElementById("readNote").style.display = "none"; //hide
-
+document.getElementById("newNote").style.display = "none";
 //user chooser
 var userId;     //an id so you cant cheat the system to easily
 //all the notes from one user
@@ -13,6 +13,7 @@ function chooseUser(user) {
     document.getElementById("users").style.display = "none";
     document.getElementById("readNote").style.display = "none";
     document.getElementById("notesPage").style.display = "block";
+    document.getElementById("newNote").style.display = "block";
     loadNote();
 }
 
@@ -20,6 +21,7 @@ function showNotes() {
     document.getElementById("users").style.display = "none";
     document.getElementById("readNote").style.display = "none";
     document.getElementById("notesPage").style.display = "block";
+    document.getElementById("newNote").style.display = "block";
 }
 
 function loadData() {
