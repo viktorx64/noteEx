@@ -65,6 +65,7 @@ function loadNote() {
         note.appendChild(created);
         note.appendChild(edited);
         note.setAttribute("onclick","openEditor(" + i + ")");
+        note.setAttribute("class", "notes");
         note.className = "col-sm-6 notering";
         //add to note list
         List.appendChild(note);
