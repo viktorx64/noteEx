@@ -16,6 +16,12 @@ function chooseUser(user) {
     loadNote();
 }
 
+function showNotes() {
+    document.getElementById("users").style.display = "none";
+    document.getElementById("readNote").style.display = "none";
+    document.getElementById("notesPage").style.display = "block";
+}
+
 function loadData() {
     fetch("https://api.airtable.com/v0/appoHaXAczcm9r8T5/Table%201?api_key=keyhUeGc1q8yCVQdl")
         .then(response => response.json())
@@ -107,6 +113,7 @@ function createNote() {
           })
         })
         .then(response => response.json())
+        loadData();
 }
 
 function editNote(id) {
