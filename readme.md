@@ -6,9 +6,8 @@
 <h3> Make a simple note app on the browser that saves data on the "cloud"(online) </h3>
 <br>
 <hr>
-<h2> How to </h2>
-<!-- 
-    todo fill in --> 
+<h2> links </h2>
+<a> https://noteringar.herokuapp.com/ </a>
 <br>
 <hr>
 <h2> Extensions / helpers </h2>
