@@ -1,4 +1,4 @@
-console.log("NoteEx version 1.1.0");
+console.log("NoteEx version 1.2.0");
 document.getElementById("readNote").style.display = "none"; //hide
 
 //user chooser
@@ -67,10 +67,16 @@ function loadNote() {
 function openEditor(id) {
     if (id=="new") {
         //Todo create new note code
+        document.getElementById("Title").value = "";
+        document.getElementById("Content").value = "";
+        //make save button work
+        document.getElementById("save").setAttribute("onclick", "createNote()");
     } else {
         //load note data into page
         document.getElementById("Title").value = notes[id].fields.title;
         document.getElementById("Content").value = notes[id].fields.content;
+        //make save button work
+        document.getElementById("save").setAttribute("onclick", "editNote(" + id + ")");
     }
     //hide other stuff and show editor/view page
     document.getElementById("users").style.display = "none";
@@ -81,7 +87,7 @@ function openEditor(id) {
 function createNote() {
     //
     fetch(`https://api.airtable.com/v0/appoHaXAczcm9r8T5/Table%201?api_key=keyhUeGc1q8yCVQdl`, {
-        method: 'POST', // or 'PUT'
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -93,6 +99,31 @@ function createNote() {
                           "title": document.getElementById("Title").value,
                           "content": document.getElementById("Content").value,
                           "created" : Date.now(),
+                          "edit": Date.now(),
+                          "userId":  userId
+                      }
+                  }
+              ]
+          })
+        })
+        .then(response => response.json())
+}
+
+function editNote(id) {
+    //same as before but with patch
+    fetch(`https://api.airtable.com/v0/appoHaXAczcm9r8T5/Table%201?api_key=keyhUeGc1q8yCVQdl`, {
+        method: 'PATCH', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "records": [
+                  {
+                        "id": notes[id].id,
+                        "fields": {
+                          "Name": "created with code",
+                          "title": document.getElementById("Title").value,
+                          "content": document.getElementById("Content").value,
                           "edit": Date.now(),
                           "userId":  userId
                       }
